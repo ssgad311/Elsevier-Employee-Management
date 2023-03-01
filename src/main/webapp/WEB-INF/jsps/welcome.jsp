@@ -59,12 +59,9 @@
 											<th>Mobile No</th>
 											<th>Email Id</th>
 											<th>Gender</th>
-											<th>Salary
-												<button type="button" class="btn btn-link">
-													<span class="bi bi-caret-up-fill" style="font-size: 10px; color:rgb(0, 0, 128);"></span></button>
-												<button type="button" class="btn btn-link">
-													<span class="bi bi-caret-down-fill" style="font-size: 10px; color:rgb(0, 0, 128);"></span></button>
-											</th>
+											<th><a 
+												href="/employee-management/page/${currentPage}?sortField=id&sortDir=${reverseSortDir}"
+												class="link-primary">Salary</a></th>
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
@@ -101,21 +98,21 @@
 							<li class="page-item"><a class="page-link"
 								class="link-primary">Total Items : ${totalItems}</a></li>
 							<li class="page-item"><a class="page-link"
-								href="/employee-management/page/1" class="link-primary">First</a></li>
+								href="/employee-management/page/1?sortField=${sortField}&sortDir=${sortDir}" class="link-primary">First</a></li>
 							<li class="page-item"><a class="page-link"
-								href="/employee-management/page/${currentPage - 1}"
+								href="/employee-management/page/${currentPage - 1}?sortField=${sortField}&sortDir=${sortDir}"
 								class="link-primary">Previous</a></li>
 							<c:forEach begin="1" end="${totalPages}" varStatus="loop">
 								<li class="page-item"><a class="page-link"
-									href="/employee-management/page/${loop.index}"
+									href="/employee-management/page/${loop.index}?sortField=${sortField}&sortDir=${sortDir}"
 									class="link-primary">${loop.index}</a></li>
 							</c:forEach>
 
 							<li class="page-item"><a class="page-link"
-								href="/employee-management/page/${currentPage + 1}"
+								href="/employee-management/page/${currentPage + 1}?sortField=${sortField}&sortDir=${sortDir}"
 								class="link-primary">Next</a></li>
 							<li class="page-item"><a class="page-link"
-								href="/employee-management/page/${totalPages}"
+								href="/employee-management/page/${totalPages}?sortField=${sortField}&sortDir=${sortDir}"
 								class="link-primary">Last</a></li>
 						</ul>
 					</div>
