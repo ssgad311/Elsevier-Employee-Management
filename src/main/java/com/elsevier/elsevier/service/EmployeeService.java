@@ -18,4 +18,6 @@ public interface EmployeeService {
 
 	Page<Employee> listAll(int pageNum, String sortField, String sortDir);
 
+	List<Employee> employeeListForExportExcel();
+
 }

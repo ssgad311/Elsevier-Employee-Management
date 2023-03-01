@@ -57,5 +57,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	    return employeeRepository.findAll(pageable);
 	}
 
+	public List<Employee> employeeListForExportExcel(){
+		return employeeRepository.findAll(Sort.by("emailId").ascending());
+	}
 	
 }

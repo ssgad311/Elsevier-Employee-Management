@@ -38,5 +38,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.listAll(pageNum,sortField,sortDir);
 	}
 
+	@Override
+	public List<Employee> employeeListForExportExcel() {
+		return employeeDao.employeeListForExportExcel();
+	}
+
 	
 }

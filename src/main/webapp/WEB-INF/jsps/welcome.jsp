@@ -34,6 +34,9 @@
 							class="btn btn-primary"> <i class="fas fa-user-plus ml-2">Add
 								Employee </i>
 						</a>
+						<a href="/employee-management/export-excel"
+							class="btn btn-primary"> Export To Excel
+						</a>						
 					</p>
 					<%-- <div class="container">
 						<div class="row justify-content-center">

@@ -1,6 +1,12 @@
 package com.elsevier.elsevier.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.elsevier.elsevier.excel.EmployeeExcelExport;
 import com.elsevier.elsevier.model.Employee;
 import com.elsevier.elsevier.service.EmployeeService;
 
@@ -79,6 +86,24 @@ public class EmployeeController {
 		Employee employee = employeeService.getById(id);
 		employeeService.delete(employee);
 		return "redirect:/employee-management/";
+	}
+	
+	@GetMapping("/export-excel")
+	public String exportToExcel(HttpServletResponse response) throws IOException {
+		response.setContentType("application/octet-stream");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateAndTime = dateFormat.format(new Date());
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename = Employees_"+currentDateAndTime+".xlsx";
+		response.setHeader(headerKey, headerValue);
+		
+		List<Employee> employeeListForExportExcel = employeeService.employeeListForExportExcel();
+		EmployeeExcelExport employeeExcelExport = new EmployeeExcelExport(employeeListForExportExcel);
+		
+		employeeExcelExport.export(response);
+		
+		return "welcome";
 	}
 
 };

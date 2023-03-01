@@ -17,5 +17,7 @@ public interface EmployeeDao {
 	void delete(Employee employee);
 
 	Page<Employee> listAll(int pageNum, String sortField, String sortDir);
+	
+	public List<Employee> employeeListForExportExcel();
 
 }
