@@ -22,10 +22,11 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return employeeRepository.findAll(); 	
 	}
 
-	public void saveEmployee(Employee employee) {
+	public Employee saveEmployee(Employee employee) {
 		System.out.println("Employee Id : "+employee.getId());
 		if(employee.getId()==null) {
 			employeeRepository.save(employee);
+			return employee;
 		}else {
 			Employee employeeObject = employeeRepository.findById(employee.getId()).get();
 			employeeObject.setName(employee.getName());
@@ -37,6 +38,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			employeeObject.setGender(employee.getGender());
 			employeeObject.setSalary(employee.getSalary());
 			employeeRepository.save(employee);
+			return employeeObject;
 		}
 	}
 

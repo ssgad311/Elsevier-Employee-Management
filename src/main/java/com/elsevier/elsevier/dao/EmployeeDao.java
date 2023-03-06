@@ -10,7 +10,7 @@ public interface EmployeeDao {
 
 	List<Employee> getAllEmployees();
 
-	void saveEmployee(Employee employee);
+	Employee saveEmployee(Employee employee);
 
 	Employee getById(Integer id);
 
