@@ -15,6 +15,11 @@
 
 <body>
 	<div class="container my-5">
+		<div class="container my-3">
+			<div class="row justify-content-center">
+				<h1>Employee Management</h1>
+			</div>
+		</div>
 		<h3>Add Employee</h3>
 		<div class="card">
 			<div class="card-body">
@@ -57,7 +62,7 @@
 								<label for="email" class="col-form-label">Email</label>
 								<form:input type="text" class="form-control" id="email"
 									path="emailId" placeholder="Email Id" />
-									${emailErrormessage}
+								${emailErrormessage}
 							</div>
 							<div class="form-group col-md-8">
 								<label for="gender" class="col-form-label">Gender</label>
@@ -73,7 +78,7 @@
 										name="gender" value="female">Female
 									</label>
 								</div>
-								
+
 								<%-- <form:input type="text" class="form-control" id="gender"
 									path="gender" placeholder="Gender" /> --%>
 							</div>
@@ -87,7 +92,7 @@
 							</div>
 
 							<div class="col-md-6">
-								<a href="/employee-management/" class="btn btn-primary">Home
+								<a href="/employee-management/manager-operations" class="btn btn-primary">Manager Home
 								</a>
 							</div>
 

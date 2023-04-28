@@ -51,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	public Page<Employee> listAll(int pageNum, String sortField, String sortDir) {
 		int pageSize = 5;	     
-	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sortDir.equals("ase")?Sort.by(sortField).ascending():Sort.by(sortField).descending());
+	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sortDir.equals("asc")?Sort.by(sortField).ascending():Sort.by(sortField).descending());
 	    //System.out.println("Pagable : "+pageable);
 	     
 	    return employeeRepository.findAll(pageable);
