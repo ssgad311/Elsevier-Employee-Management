@@ -35,7 +35,15 @@
 						<p class="my-5">
 							<a href="/employee-management/manager-login"
 								class="btn btn-primary"> <i class="fas fa-user ml-2">
-									Login</i>
+									Manager Login</i>
+							</a>
+						</p>
+					</div>
+					<div>
+						<p class="my-5">
+							<a href="/employee-management/employee-login"
+								class="btn btn-primary"> <i class="fas fa-user ml-2">
+									Employee Login</i>
 							</a>
 						</p>
 					</div>

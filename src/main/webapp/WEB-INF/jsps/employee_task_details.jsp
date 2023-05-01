@@ -38,7 +38,7 @@
 				<h1>Employee Management</h1>
 			</div>
 			<div class="row justify-content-left">
-				<h1>Task Details</h1>
+				<h1>Employee Task Details</h1>
 			</div>
 		</div>
 		<div class="card">
@@ -57,9 +57,7 @@
 											<th>Name</th>
 											<th>Details</th>
 											<th>Status</th>
-											<th>Assigned Employee</th>
-											<th>Edit</th>
-											<th>Delete</th>
+											<th>Change the Status</th>
 
 										</tr>
 									</thead>
@@ -69,16 +67,10 @@
 												<td>${task.taskId}</td>
 												<td>${task.taskName}</td>
 												<td>${task.taskDetails}</td>
-												<td>${task.taskStatus}</td>
-												<td>${task.employee.name}</td>
-												<td></td>
+												<td>${task.taskStatus}</td>												
 												<td><a
-													href="/employee-management/task-update/${task.taskId}"
+													href="/employee-management/task-update/${task.taskId}/${task.employee.id}"
 													class="btn btn-primary"> Edit</a></td>
-
-												<td><a
-													href="/employee-management/task-delete/${task.taskId}"
-													class="btn btn-danger">Delete </a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -87,8 +79,8 @@
 						</c:if>
 					</div>
 					<div class="col-md-6">
-						<a href="/employee-management/manager-operations"
-							class="btn btn-primary"> Manager Home </a>
+						<a href="/employee-management/employee-operations/${employeeId}"
+							class="btn btn-primary"> Employee Home </a>
 					</div>
 				</div>
 			</div>

@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Employee Management</title>
+<title>Employee Operations</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -21,43 +21,26 @@
 					<div class="row justify-content-center">
 						<h1>Employee Management</h1>
 					</div>
+					<div >
+						<h2>Employee Operations</h2>
+					</div>
 				</div>
 				<div class="container my-5">
 					<div>
 						<p class="my-5">
-							<a href="/employee-management/add-employee"
-								class="btn btn-primary"> <i class="fas fa-user-plus ml-2">  Add Employee</i>
-							</a>
-						</p>
-					</div>
-					<div>
-						<p class="my-5">
-							<a href="/employee-management/add-task"
-								class="btn btn-primary"><b> Create Task</b>
-							</a>
-						</p>
-					</div>
-					<div>
-						<p class="my-5">
-							<a href="/employee-management/view-all-tasks"
-								class="btn btn-primary"><b>  View All Tasks</b>
-							</a>
-						</p>
-					</div>
-					<div>
-						<p class="my-5">
-							<a href="/employee-management/view-all-employees"
-								class="btn btn-primary"> <b>  View All Employees</b>
+							<a href="/employee-management/employee-veiw-my-tasks/${employeeId}"
+								class="btn btn-primary"> <i class="fas fa-user-plus ml-2">  View My Tasks</i>
 							</a>
 						</p>
 					</div>
 					<div>
 						<p class="my-5">
 							<a href="/employee-management/"
-								class="btn btn-primary"> <b> Logout</b>
+								class="btn btn-primary"> <i class="fas fa-user-plus ml-2">  logout</i>
 							</a>
 						</p>
 					</div>
+					
 				</div>
 			</div>
 		</div>

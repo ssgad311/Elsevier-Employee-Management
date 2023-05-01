@@ -39,6 +39,16 @@
 									path="name" placeholder="Name" />
 							</div>
 							<div class="form-group col-md-8">
+								<label for="username" class="col-form-label">User Name</label>
+								<form:input type="text" class="form-control" id="username"
+									path="username" placeholder="username" />
+							</div>
+							<div class="form-group col-md-8">
+								<label for="password" class="col-form-label">Password</label>
+								<form:input type="password" class="form-control" id="password"
+									path="password" placeholder="password" />
+							</div>
+							<div class="form-group col-md-8">
 								<label for="department" class="col-form-label">Department</label>
 								<form:input type="text" class="form-control" id="department"
 									path="department" placeholder="department" />

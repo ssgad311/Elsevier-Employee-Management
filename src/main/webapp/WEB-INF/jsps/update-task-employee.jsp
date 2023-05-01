@@ -31,7 +31,7 @@
 							<h5>${message}</h5>
 						</div>
 					</div>
-					<form:form action="/employee-management/save-task" method="post"
+					<form:form action="/employee-management/save-task/employee" method="post"
 						modelAttribute="task">
 						<form:hidden path="taskId" />
 						<div class="row">
@@ -73,8 +73,8 @@
 							</div>
 
 							<div class="col-md-6">
-								<a href="/employee-management/manager-operations"
-									class="btn btn-primary"> Manager Home </a>
+								<a href="/employee-management/employee-operations/${employeeId}"
+									class="btn btn-primary"> Employee Home </a>
 							</div>
 
 						</div>

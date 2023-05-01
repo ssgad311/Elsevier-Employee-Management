@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Manager Login</title>
+<title>Employee Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -19,7 +19,7 @@
 				<h1 class="form-heading">Employee Management</h1>
 			</div>
 			<div class="row justify-content-center">
-				<h1 class="form-heading">Manager Login</h1>
+				<h1 class="form-heading">Employee Login</h1>
 			</div>
 		</div>
 		<div class="card">
@@ -30,8 +30,8 @@
 				<div>
 					<font color="red">${message}</font>
 				</div>
-				<form:form action="/employee-management/manager-login-action"
-					method="POST" modelAttribute="manager">
+				<form:form action="/employee-management/employee-login-action/"
+					method="POST" modelAttribute="employee">
 					<div class="container my-5">
 						<div class="form-group col-md-8">
 							<label for="username" class="col-form-label">User Name</label>

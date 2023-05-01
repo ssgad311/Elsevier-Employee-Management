@@ -7,10 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 @Table(name  = "Employee")
 public class Employee {
@@ -23,6 +19,12 @@ public class Employee {
 	
 	@Column(name = "employee_name")
 	private String name;
+	
+	@Column(name = "employee_username")
+	private String username;
+
+	@Column(name = "employee_password")
+	private String password;
 	
 	@Column(name = "employee_department")
 	private String department;
@@ -44,7 +46,7 @@ public class Employee {
 	
 	@Column(name = "employee_salary")
 	private Double salary;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -72,6 +74,7 @@ public class Employee {
 	public String getDesignation() {
 		return designation;
 	}
+	
 
 	public void setDesignation(String designation) {
 		this.designation = designation;
@@ -115,6 +118,22 @@ public class Employee {
 
 	public void setSalary(Double salary) {
 		this.salary = salary;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	
