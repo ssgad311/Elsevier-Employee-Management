@@ -34,9 +34,20 @@ public class EmployeeController {
 	private TaskService taskService;
 
 	// Manager Operations
-	@GetMapping("/")
+	@GetMapping("/mainpage")
 	public String welcomPage() {
 		return "manager-main-page";
+	}
+	
+	@GetMapping("/")
+	public String viewManagerRegistrationPageHomePageForRahul(Model model) {
+		model.addAttribute("manager", new Manager());
+		return "add_manager";
+	}
+	
+	@GetMapping("/manager-mainpage")
+	public String managerMainPage() {
+		return "manager-main-page2-for-rahul";
 	}
 
 	@GetMapping("/add-manager")
