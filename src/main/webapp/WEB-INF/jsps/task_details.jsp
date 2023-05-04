@@ -58,6 +58,8 @@
 											<th>Details</th>
 											<th>Status</th>
 											<th>Assigned Employee</th>
+											<th>Created Date</th>
+											<th>Completion Date</th>
 											<th>Edit</th>
 											<th>Delete</th>
 
@@ -71,7 +73,8 @@
 												<td>${task.taskDetails}</td>
 												<td>${task.taskStatus}</td>
 												<td>${task.employee.name}</td>
-												<td></td>
+												<td>${task.taskCreatedDate}</td>
+												<td>${task.taskCompletionDate}</td>
 												<td><a
 													href="/employee-management/task-update/${task.taskId}"
 													class="btn btn-primary"> Edit</a></td>

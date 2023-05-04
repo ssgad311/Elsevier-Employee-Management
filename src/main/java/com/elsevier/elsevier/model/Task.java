@@ -1,5 +1,9 @@
 package com.elsevier.elsevier.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +31,12 @@ public class Task {
 	
 	@Column(name="task_status")
 	private String taskStatus;
+	
+	@Column(name="task_created_date")
+	private Timestamp taskCreatedDate;
+	
+	@Column(name="task_completion_date")
+	private String taskCompletionDate;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "employee_id", nullable = false)
@@ -81,6 +91,34 @@ public class Task {
 
 	public void setTaskStatus(String taskStatus) {
 		this.taskStatus = taskStatus;
+	}
+
+	public Timestamp getTaskCreatedDate() {
+		return taskCreatedDate;
+	}
+
+	public void setTaskCreatedDate(Timestamp timestamp) {
+		this.taskCreatedDate = timestamp;
+	}
+
+	public String getTaskCompletionDate() {
+		return taskCompletionDate;
+	}
+
+	public void setTaskCompletionDate(String taskCompletionDate) {
+		this.taskCompletionDate = taskCompletionDate;
+	}
+
+	public Task(Integer taskId, String taskName, String taskDetails, String taskStatus, Timestamp taskCreatedDate,
+			String taskCompletionDate, Employee employee) {
+		super();
+		this.taskId = taskId;
+		this.taskName = taskName;
+		this.taskDetails = taskDetails;
+		this.taskStatus = taskStatus;
+		this.taskCreatedDate = taskCreatedDate;
+		this.taskCompletionDate = taskCompletionDate;
+		this.employee = employee;
 	}
 	
 	

@@ -1,5 +1,9 @@
 package com.elsevier.elsevier.service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,7 @@ public class TaskServiceImpl implements TaskService {
 	public Task saveTask(Task task) {
 		Employee employee = employeeRepository.findById(task.getEmployee().getId()).get();
 		if (task.getTaskId() == null) {
+			task.setTaskCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
 			Task taskDetails = taskRepository.save(task);
 			return taskDetails;
 		} else {
@@ -35,6 +40,7 @@ public class TaskServiceImpl implements TaskService {
 			taskObject.setTaskName(task.getTaskName());
 			taskObject.setTaskDetails(task.getTaskDetails());
 			taskObject.setEmployee(employee);
+			taskObject.setTaskCompletionDate(task.getTaskCompletionDate());
 			Task taskDetails = taskRepository.save(task);
 			return taskDetails;
 		}
@@ -48,11 +54,11 @@ public class TaskServiceImpl implements TaskService {
 		taskRepository.delete(task);
 
 	}
-	
+
 	public List<Task> getTaskDetailsByEmployeeId(Integer employeeId) {
-		System.out.println("employeeId : "+employeeId);
+		System.out.println("employeeId : " + employeeId);
 		List<Task> taskDetailsOfEmployee = taskRepository.findByEmployeeId(employeeId);
-		System.out.println("taskDetailsOfEmployee : "+taskDetailsOfEmployee);
+		System.out.println("taskDetailsOfEmployee : " + taskDetailsOfEmployee);
 		return taskDetailsOfEmployee;
 	}
 }
