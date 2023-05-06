@@ -2,9 +2,12 @@ package com.elsevier.elsevier.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -49,6 +52,10 @@ public class Employee {
 	
 	@Column(name = "employee_photo", nullable = true, length = 64)
     private String photos;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "manager_id", nullable = false)
+	private Manager manager;	
 	
 	public Integer getId() {
 		return id;
@@ -146,7 +153,14 @@ public class Employee {
 	public void setPhotos(String photos) {
 		this.photos = photos;
 	}
-	
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}		
 	
 	
 }

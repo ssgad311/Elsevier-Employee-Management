@@ -7,15 +7,17 @@ import com.elsevier.elsevier.model.Task;
 
 public interface TaskService {
 
-	public List<Task> listAllTasks();
+	public List<Task> listAllTasks(Integer managerId);
 
 	public Task saveTask(Task task);
 
-	public Task getById(Integer id);
+	public Task getByTaskIdAndManagerId(Integer taskId, Integer managerId);
 
 	public void delete(Task task);
 
 	public List<Task> getTaskDetailsByEmployeeId(Integer employeeId);
 	
-	public List<Task> searchWithTaskName(String name);
+	public List<Task> searchWithTaskNameAndManagerID(String name,Integer managerId);
+	
+	public Task getByTaskIdAndEmployeeId(Integer taskId,Integer employeeId);
 }

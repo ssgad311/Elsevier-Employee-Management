@@ -18,15 +18,12 @@
 			<div class="row justify-content-center">
 				<h1 class="form-heading">Employee Management</h1>
 			</div>
-			<div class="row justify-content-center">
+			<div >
 				<h1 class="form-heading">Manager Login</h1>
 			</div>
 		</div>
 		<div class="card">
 			<div class="card-body">
-				<div>
-					<h2 class="form-heading">Log in</h2>
-				</div>
 				<div>
 					<font color="red">${message}</font>
 				</div>

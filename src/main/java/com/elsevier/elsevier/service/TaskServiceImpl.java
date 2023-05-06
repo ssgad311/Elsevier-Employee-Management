@@ -24,15 +24,15 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public List<Task> listAllTasks() {
-		return taskRepository.findAll(Sort.by(Sort.Direction.DESC, "taskId"));
+	public List<Task> listAllTasks(Integer managerId) {
+		return taskRepository.findAllTaskByManagerId(managerId);
 	}
 
 	@Override
 	public Task saveTask(Task task) {
 		Employee employee = employeeRepository.findById(task.getEmployee().getId()).get();
 		if (task.getTaskId() == null) {
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.SS");  
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
 			LocalDateTime now = LocalDateTime.now();
 			task.setTaskCreatedDate(dtf.format(now));
 			SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
@@ -51,8 +51,8 @@ public class TaskServiceImpl implements TaskService {
 		}
 	}
 
-	public Task getById(Integer id) {
-		return taskRepository.findById(id).get();
+	public Task getByTaskIdAndManagerId(Integer taskId, Integer managerId) {
+		return taskRepository.findByTaskIdAndManagerId(taskId,managerId);
 	}
 
 	public void delete(Task task) {
@@ -67,8 +67,13 @@ public class TaskServiceImpl implements TaskService {
 		return taskDetailsOfEmployee;
 	}
 	
-	public List<Task> searchWithTaskName(String name) {
-		System.out.println("service name : "+name);
-		return taskRepository.findByTaskName(name);
+	public List<Task> searchWithTaskNameAndManagerID(String name,Integer managerId) {
+		return taskRepository.searchWithTaskNameAndManagerID(name,managerId);
 	}
+
+	@Override
+	public Task getByTaskIdAndEmployeeId(Integer taskId, Integer employeeId) {
+		return taskRepository.findByTaskIdAndEmployeeId(taskId,employeeId);
+	}
+	
 }

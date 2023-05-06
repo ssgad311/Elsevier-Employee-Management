@@ -17,19 +17,7 @@
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 
-<!-- Import jquery cdn -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous">
-	
-</script>
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous">
-	
-</script>
 </head>
 <body>
 	<div class="container my-2">
@@ -57,7 +45,7 @@
 											<th>Name</th>
 											<th>Details</th>
 											<th>Status</th>
-											<th>Change the Status</th>
+											<th>Action</th>
 
 										</tr>
 									</thead>
@@ -69,7 +57,7 @@
 												<td>${task.taskDetails}</td>
 												<td>${task.taskStatus}</td>												
 												<td><a
-													href="/employee-management/task-update/${task.taskId}/${task.employee.id}"
+													href="/employee-management/employee-task-update/${task.taskId}/${task.employee.id}"
 													class="btn btn-primary"> Edit</a></td>
 											</tr>
 										</c:forEach>

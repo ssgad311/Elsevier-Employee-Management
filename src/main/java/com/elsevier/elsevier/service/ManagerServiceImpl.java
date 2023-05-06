@@ -27,9 +27,19 @@ public class ManagerServiceImpl implements ManagerService {
 
 	@Override
 	public Manager validateUser(Manager manager) {
-		Manager managerDetails = managerRepository.findByUsername(manager.getUsername());
+		Manager managerDetails = managerRepository.findByUsernameAndPassword(manager.getUsername(),manager.getPassword());
 		List<Manager> managerList = new ArrayList<>();
 		managerList.add(managerDetails);
 		return managerList.size() > 0 ? managerList.get(0) : null;
 	}	
+	
+	public List<Manager> getAllManagersList(){
+		return managerRepository.findAll();
+	}
+
+	@Override
+	public Manager findByManagerId(Integer managerId) {
+		// TODO Auto-generated method stub
+		return managerRepository.findByUserId(managerId);
+	}
 }

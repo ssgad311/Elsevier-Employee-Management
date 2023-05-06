@@ -42,6 +42,9 @@ public class Task {
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;	
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "manager_id", nullable = false)
+	private Manager manager;	
 
 	public Employee getEmployee() {
 		return employee;
@@ -108,18 +111,18 @@ public class Task {
 	public void setTaskCompletionDate(String taskCompletionDate) {
 		this.taskCompletionDate = taskCompletionDate;
 	}
+	
+	
 
-	public Task(Integer taskId, String taskName, String taskDetails, String taskStatus, String taskCreatedDate,
-			String taskCompletionDate, Employee employee) {
-		super();
-		this.taskId = taskId;
-		this.taskName = taskName;
-		this.taskDetails = taskDetails;
-		this.taskStatus = taskStatus;
-		this.taskCreatedDate = taskCreatedDate;
-		this.taskCompletionDate = taskCompletionDate;
-		this.employee = employee;
+	public Manager getManager() {
+		return manager;
 	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+
+	
 	
 	
 

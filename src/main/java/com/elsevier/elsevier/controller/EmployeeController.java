@@ -20,13 +20,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.elsevier.elsevier.model.Employee;
 import com.elsevier.elsevier.model.Manager;
 import com.elsevier.elsevier.model.Task;
+import com.elsevier.elsevier.repo.TaskRepository;
 import com.elsevier.elsevier.service.EmployeeService;
 import com.elsevier.elsevier.service.ManagerService;
 import com.elsevier.elsevier.service.TaskService;
 import com.elsevier.elsevier.utils.FileUploadUtil;
+import com.elsevier.elsevier.utils.URLConstants;
 
 @Controller
-@RequestMapping(value = "/employee-management")
+@RequestMapping(value = URLConstants.EMPLOYEE_MANAGEMENT)
 public class EmployeeController {
 
 	@Autowired
@@ -38,56 +40,57 @@ public class EmployeeController {
 	@Autowired
 	private TaskService taskService;
 
-	// Manager Operations
-	@GetMapping("/mainpage")
-	public String welcomPage() {
-		return "manager-main-page";
-	}
-	
-	@GetMapping("/")
+	/*
+	 * // Manager Operations
+	 * 
+	 * @GetMapping("/mainpage") public String welcomPage() { return
+	 * "manager-main-page"; }
+	 */
+
+	@GetMapping(URLConstants.HOME)
 	public String viewManagerRegistrationPageHomePageForRahul(Model model) {
 		model.addAttribute("manager", new Manager());
 		return "add_manager";
 	}
-	
-	@GetMapping("/manager-mainpage")
+
+	@GetMapping(URLConstants.MANAGER_HOME_PAGE_TEMP)
 	public String managerMainPage() {
 		return "manager-main-page2-for-rahul";
 	}
 
-	@GetMapping("/add-manager")
+	@GetMapping(URLConstants.ADD_MANAGER)
 	public String viewManagerRegistrationPage(Model model) {
 		model.addAttribute("manager", new Manager());
 		return "add_manager";
 	}
 
-	@PostMapping("/save-manager")
+	@PostMapping(URLConstants.SAVE_MANAGER)
 	public String saveManager(@ModelAttribute Manager manager, Model model) {
 		if (manager.getMailId().contains("@")) {
 			managerService.saveManager(manager);
 			model.addAttribute("message", "Manager Created/Updated Successfully!!!");
 			return "add_manager";
 		} else {
-			model.addAttribute("emailErrormessage", "please provide correct email with @ domain");
-			return "redirect:/employee-management/add-manager";
+			model.addAttribute("message", "please provide correct email with @ domain");
+			return "add_manager";
 		}
 	}
 
-	@GetMapping("/manager-login")
+	@GetMapping(URLConstants.MANAGER_LOGIN)
 	public String managerLoginPage(Model model) {
 		model.addAttribute("manager", new Manager());
 		return "manager-login";
 	}
 
-	@PostMapping("/manager-login-action")
+	@PostMapping(URLConstants.MANAGER_LOGIN_ACTION)
 	public String loginManager(Model model, Manager manager) {
 		if (manager.getUsername().isEmpty() && manager.getPassword().isEmpty()) {
-			model.addAttribute("message", "Incorrect username or password");
+			model.addAttribute("message", "Please provide the username and password");
 			return "manager-login";
 		} else {
 			Manager managerDetails = managerService.validateUser(manager);
 			if (null != managerDetails) {
-				return "manager-operations";
+				return "redirect:/employee-management/manager-operations/" + managerDetails.getId();
 			} else {
 				model.addAttribute("message", "Username or Password is wrong!!");
 				return "manager-login";
@@ -95,20 +98,21 @@ public class EmployeeController {
 		}
 	}
 
-	@GetMapping("/manager-operations")
-	public String managerHomePage() {
+	@GetMapping(URLConstants.MANAGER_OPERATIONS)
+	public String managerHomePage(@PathVariable("managerId") Integer managerId, Model model) {
+		model.addAttribute("managerId", managerId);
 		return "manager-operations";
 	}
 
 	// Employee Operations
 
-	@GetMapping("/employee-login")
+	@GetMapping(URLConstants.EMPLOYEE_LOGIN)
 	public String employeeLoginPage(Model model) {
 		model.addAttribute("employee", new Manager());
 		return "employee-login";
 	}
 
-	@PostMapping("/employee-login-action")
+	@PostMapping(URLConstants.EMPLOYEE_LOGIN_ACTION)
 	public String loginEmployee(Model model, Employee employee) {
 		if (employee.getUsername().isEmpty() && employee.getPassword().isEmpty()) {
 			model.addAttribute("message", "Incorrect username or password");
@@ -116,7 +120,7 @@ public class EmployeeController {
 		} else {
 			Employee employeeDetails = employeeService.validateUser(employee);
 			if (null != employeeDetails) {
-				String s = "redirect:/employee-management/employee-operations/"+employeeDetails.getId();
+				String s = "redirect:/employee-management/employee-operations/" + employeeDetails.getId();
 				return s;
 			} else {
 				model.addAttribute("message", "Username or Password is wrong!!");
@@ -125,14 +129,14 @@ public class EmployeeController {
 		}
 	}
 
-	@GetMapping("/employee-operations/{id}")
-	public String employeeOperationsHomePageWithId(@PathVariable("id") Integer employeeId,Model model) {
-		System.out.println("employeeId :"+employeeId);
-		model.addAttribute("employeeId",employeeId);
+	@GetMapping(URLConstants.EMPLOYEE_OPERATIONS)
+	public String employeeOperationsHomePageWithId(@PathVariable("id") Integer employeeId, Model model) {
+		System.out.println("employeeId :" + employeeId);
+		model.addAttribute("employeeId", employeeId);
 		return "employee-operations";
 	}
 
-	@GetMapping("/employee-veiw-my-tasks/{employeeId}")
+	@GetMapping(URLConstants.EMPLOYEE_SECIFIC_TASKS)
 	public String employeeViewMyTasks(Model model, @PathVariable("employeeId") Integer employeeId) {
 		System.out.println("employee id controller : " + employeeId);
 		List<Task> taskList = taskService.getTaskDetailsByEmployeeId(employeeId);
@@ -142,140 +146,179 @@ public class EmployeeController {
 		return "employee_task_details";
 	}
 
-	@GetMapping("/add-employee")
-	public String getAllEmployees(Model model) {
+	@GetMapping(URLConstants.ADD_EMPLOYEE)
+	public String getAllEmployees(Model model, @PathVariable("managerId") Integer managerId) {
 		model.addAttribute("employee", new Employee());
+		// List<Manager> managerList = managerService.getAllManagersList();
+		// model.addAttribute("managers", managerList);
+		model.addAttribute("managerId", managerId);
 		return "add_employee";
 	}
 
-	@PostMapping("/save-employee")
-	public String saveEmployee(@ModelAttribute Employee employee, Model model,@RequestParam("image") MultipartFile multipartFile) throws IOException {
+	@PostMapping(URLConstants.SAVE_EMPLOYEE)
+	public String saveEmployee(@ModelAttribute Employee employee, Model model,
+			@RequestParam("image") MultipartFile multipartFile, @PathVariable("managerId") Integer managerId)
+			throws IOException {
 		if (employee.getEmailId().contains("@")) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			System.out.println("photo name is : "+fileName);
 			employee.setPhotos(fileName);
+			Manager managerDetails = managerService.findByManagerId(managerId);
+			employee.setManager(managerDetails);
 			Employee savedEmployee = employeeService.saveEmployee(employee);
-			String uploadDir = "user-photos/" + savedEmployee.getId();	
+			String uploadDir = "user-photos/" + savedEmployee.getId();
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 			model.addAttribute("message", "Employee Created/Updated Successfully!!!");
+			model.addAttribute("managerId", managerId);
 			return "add_employee";
 		} else {
-			model.addAttribute("emailErrormessage", "please provide correct email with @ domain");
+			model.addAttribute("message", "please provide correct email with @ domain");
 			return "add_employee";
 		}
 	}
 
-	@GetMapping("/view-all-employees")
-	public String listAllEmployees(Model model) {
-		List<Employee> employeeList = employeeService.getAllEmployees();
+	@GetMapping(URLConstants.VIEW_ALL_EMPLOYEES)
+	public String viewAllEmployees(Model model, @PathVariable("managerId") Integer managerId) {
+		List<Employee> employeeList = employeeService.getAllEmployeesBasedOnManagerId(managerId);
 		model.addAttribute("employees", employeeList);
+		model.addAttribute("managerId", managerId);
 		return "employee-details";
 	}
 
-	@GetMapping("/employee-update/{id}")
-	public String getEmployee(@PathVariable("id") Integer id, Model model) {
-		Employee employee = employeeService.getById(id);
+	@GetMapping(URLConstants.EMPLOYEE_UPDATE)
+	public String getEmployee(@PathVariable("id") Integer employeeId, Model model,
+			@PathVariable("managerId") Integer managerId) {
+		Employee employee = employeeService.getById(employeeId);
 		model.addAttribute("employee", employee);
+		// model.addAttribute("image", employee.getPhotos());
+		model.addAttribute("managerId", managerId);
 		return "add_employee";
 	}
 
-	@GetMapping("/employee-delete/{id}")
-	public String deleteEmployee(@PathVariable("id") Integer id) {
-		Employee employee = employeeService.getById(id);
+	@GetMapping(URLConstants.EMPLOYEE_DELETE)
+	public String deleteEmployee(@PathVariable("employeeId") Integer employeeId,
+			@PathVariable("managerId") Integer managerId) {
+		Employee employee = employeeService.getById(employeeId);
+		List<Task> taskList = taskService.getTaskDetailsByEmployeeId(employeeId);
+		for (Task task : taskList) {
+			taskService.delete(task);
+		}
+		System.out.println("sssssssssssssssssssss");
 		employeeService.delete(employee);
-		return "redirect:/employee-management/view-all-employees";
+		return "redirect:/employee-management/view-all-employees/" +managerId;
 	}
-	
-	@GetMapping("/employee-search")
-	public String employeeSearch(@RequestParam("employeeName") String name, Model model) {
-		System.out.println("Name : "+name);
-		List<Employee> employeeList = employeeService.searchWithEmployeeName(name);
+
+	@GetMapping(URLConstants.EMPLOYEE_SEARCH)
+	public String employeeSearch(@RequestParam("employeeName") String name, Model model,
+			@PathVariable("managerId") Integer managerId) {
+		List<Employee> employeeList = employeeService.searchWithEmployeeName(name, managerId);
 		model.addAttribute("employees", employeeList);
 		return "employee-details";
 	}
-
-
 	
+	@GetMapping(URLConstants.EMPLOYEE_TASK_UPDATE)
+	public String updateTaskAndEmployeeDetails(@PathVariable("taskId") Integer taskId,
 
-	// Task Operations
-	@GetMapping("/add-task")
-	public String taskCreationPage(Model model) {
-		model.addAttribute("task", new Task());
-		List<Employee> employeeList = employeeService.getAllEmployees();
-		model.addAttribute("employees", employeeList);
-		return "add_task";
-	}
-
-	@PostMapping("/save-task")
-	public String saveTask(@ModelAttribute Task task, Model model) {
-		System.out.println("Task Id: " + task.getTaskId());
-		if (task.getTaskName().isEmpty()) {
-			model.addAttribute("message", "please provide correct task name");
-			return "add_task";
-		} else {
-			taskService.saveTask(task);
-			model.addAttribute("message", "Task Created/Updated Successfully!!!");
-			return "add_task";
-		}
-	}
-	
-	@PostMapping("/save-task/employee")
-	public String saveTaskByEmployee(@ModelAttribute Task task, Model model) {
-		System.out.println("Task Id: " + task.getTaskId());
-		if (task.getTaskName().isEmpty()) {
-			model.addAttribute("message", "please provide correct task name");
-			return "update-task-employee";
-		} else {
-			Task taskDetails = taskService.saveTask(task);
-			model.addAttribute("employeeId", taskDetails.getEmployee().getId());
-			model.addAttribute("message", "Task Created/Updated Successfully!!!");
-			return "update-task-employee";
-		}
-	}
-
-	@GetMapping("/view-all-tasks")
-	public String listAllTasks(Model model) {
-		List<Task> taskList = taskService.listAllTasks();
-		model.addAttribute("tasks", taskList);
-		List<Employee> employeeList = employeeService.getAllEmployees();
-		model.addAttribute("employees", employeeList);
-		return "task_details";
-	}
-
-	@GetMapping("/task-update/{id}")
-	public String updateTaskDetails(@PathVariable("id") Integer id, Model model) {
-		Task task = taskService.getById(id);
-		model.addAttribute("task", task);
-		List<Employee> employeeList = employeeService.getAllEmployees();
-		model.addAttribute("employees", employeeList);
-		return "add_task";
-	}	
-	
-	@GetMapping("/task-update/{id}/{employee_id}")
-	public String updateTaskAndEmployeeDetails(@PathVariable("id") Integer id,@PathVariable("employee_id") Integer employeeId, Model model) {
-		Task task = taskService.getById(id);
+			@PathVariable("employee_id") Integer employeeId, Model model) {
+		Task task = taskService.getByTaskIdAndEmployeeId(taskId,employeeId);
 		model.addAttribute("task", task);
 		List<Employee> employeeList = employeeService.getAllEmployees();
 		model.addAttribute("employees", employeeList);
 		model.addAttribute("employeeId", employeeId);
 		return "update-task-employee";
-	}	
+	}
 
-	@GetMapping("/task-delete/{id}")
-	public String deleteTask(@PathVariable("id") Integer id) {
-		Task task = taskService.getById(id);
-		taskService.delete(task);
-		return "redirect:/employee-management/view-all-tasks";
+	// Task Operations
+	@GetMapping(URLConstants.ADD_TASK)
+	public String taskCreationPage(Model model, @PathVariable("managerId") Integer managerId) {
+		model.addAttribute("task", new Task());
+		List<Employee> employeeList = employeeService.getAllEmployeesBasedOnManagerId(managerId);
+		model.addAttribute("employees", employeeList);
+		model.addAttribute("managerId", managerId);
+		return "add_task";
+	}
+
+	@PostMapping(URLConstants.SAVE_TASK)
+	public String saveTask(@ModelAttribute Task task, Model model, @PathVariable("managerId") Integer managerId) {
+		System.out.println("Task Id: " + task.getTaskId());
+		if (task.getTaskName().isEmpty()) {
+			model.addAttribute("message", "please provide correct task name");
+			model.addAttribute("managerId", managerId);
+			return "add_task";
+		} else {
+			Manager managerDetails = managerService.findByManagerId(managerId);
+			task.setManager(managerDetails);
+			taskService.saveTask(task);
+			model.addAttribute("message", "Task Created/Updated Successfully!!!");
+			model.addAttribute("managerId", managerId);
+			return "add_task";
+		}
+	}
+
+	@PostMapping(URLConstants.SAVE_EMPLOYEE_TASK)
+	public String saveTaskByEmployee(@ModelAttribute Task task, Model model,@PathVariable("employeeId") Integer employeeId) {
+		System.out.println("Task Id: " + task.getTaskId());
+		if (task.getTaskName().isEmpty()) {
+			model.addAttribute("message", "please provide correct task name");
+			model.addAttribute("employeeId", "employeeId");
+			return "update-task-employee";
+		} else {			
+			Task task1 = taskService.getByTaskIdAndEmployeeId(task.getTaskId(), employeeId);
+			Manager manager = managerService.findByManagerId(task1.getManager().getId());
+			task.setManager(manager);
+			Task taskDetails = taskService.saveTask(task);
+			model.addAttribute("employeeId", taskDetails.getEmployee().getId());
+			model.addAttribute("message", "Task Created/Updated Successfully!!!");			
+			return "update-task-employee";
+		}
+	}
+
+	@GetMapping(URLConstants.VIEW_ALL_TASKS)
+	public String listAllTasks(Model model, @PathVariable("managerId") Integer managerId) {
+		List<Task> taskList = taskService.listAllTasks(managerId);
+		model.addAttribute("tasks", taskList);
+		List<Employee> employeeList = employeeService.getAllEmployees();
+		model.addAttribute("employees", employeeList);
+		model.addAttribute("managerId", managerId);
+		return "task_details";
+	}
+
+	@GetMapping(URLConstants.TASK_UPDATE)
+	public String updateTaskDetails(@PathVariable("taskId") Integer taskId, Model model,
+			@PathVariable("managerId") Integer managerId) {
+		Task task = taskService.getByTaskIdAndManagerId(taskId, managerId);
+		model.addAttribute("task", task);
+		List<Employee> employeeList = employeeService.getAllEmployeesBasedOnManagerId(managerId);
+		model.addAttribute("employees", employeeList);
+		return "add_task";
 	}
 	
-	@GetMapping("/task-search")
-	public String taskSearch(@RequestParam("taskName") String name, Model model) {
-		System.out.println("Name : "+name);
-		List<Task> taskList = taskService.searchWithTaskName(name);
-		System.out.println("List fo task : "+taskList.size());
+
+	@GetMapping(URLConstants.TASK_DELETE)
+	public String deleteTask(@PathVariable("taskId") Integer taskId, @PathVariable("managerId") Integer managerId) {
+		Task task = taskService.getByTaskIdAndManagerId(taskId, managerId);
+		taskService.delete(task);
+		return "redirect:/employee-management/view-all-tasks/" + managerId;
+	}
+
+	@GetMapping(URLConstants.TASK_SEARCH)
+	public String taskSearch(@RequestParam("taskName") String name, Model model,
+			@PathVariable("managerId") Integer managerId) {
+		System.out.println("Name : " + name);
+		List<Task> taskList = taskService.searchWithTaskNameAndManagerID(name, managerId);
+		System.out.println("List fo task : " + taskList.size());
 		model.addAttribute("tasks", taskList);
 		return "task_details";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Paggin and sorting
 
 	@GetMapping("/page/{pageNum}")
 	public String viewPage(Model model, @PathVariable(name = "pageNum") int pageNum,

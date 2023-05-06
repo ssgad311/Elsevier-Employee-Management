@@ -29,14 +29,14 @@
 					<div>
 						<p class="my-5">
 							<a href="/employee-management/employee-veiw-my-tasks/${employeeId}"
-								class="btn btn-primary"> <i class="fas fa-user-plus ml-2">  View My Tasks</i>
+								class="btn btn-primary"> View My Tasks
 							</a>
 						</p>
 					</div>
 					<div>
 						<p class="my-5">
 							<a href="/employee-management/"
-								class="btn btn-primary"> <i class="fas fa-user-plus ml-2">  logout</i>
+								class="btn btn-primary"> logout
 							</a>
 						</p>
 					</div>

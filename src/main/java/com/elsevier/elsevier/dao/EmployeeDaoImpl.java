@@ -23,7 +23,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	}
 
 	public Employee saveEmployee(Employee employee) {
-		System.out.println("Employee Id : "+employee.getId());
 		if(employee.getId()==null) {
 			return employeeRepository.save(employee);
 		}else {
@@ -36,6 +35,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			employeeObject.setEmailId(employee.getEmailId());
 			employeeObject.setGender(employee.getGender());
 			employeeObject.setSalary(employee.getSalary());
+			employeeObject.setManager(employee.getManager());
 			return employeeRepository.save(employee);
 		}
 	}

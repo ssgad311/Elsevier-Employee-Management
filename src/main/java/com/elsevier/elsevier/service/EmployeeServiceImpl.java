@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.elsevier.elsevier.dao.EmployeeDao;
 import com.elsevier.elsevier.model.Employee;
-import com.elsevier.elsevier.model.Manager;
-import com.elsevier.elsevier.model.Task;
 import com.elsevier.elsevier.repo.EmployeeRepository;
 
 @Service
@@ -47,14 +45,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Override
 	public Employee validateUser(Employee employee) {
-		Employee employeeDetails = employeeRepository.findByUsername(employee.getUsername());
+		Employee employeeDetails = employeeRepository.findByUsernameAndPassword(employee.getUsername(),employee.getPassword());
 		List<Employee> employeeList = new ArrayList<>();
 		employeeList.add(employeeDetails);
 		return employeeList.size() > 0 ? employeeList.get(0) : null;
 	}	
 	
-	public List<Employee> searchWithEmployeeName(String name) {
-		return employeeRepository.findByEmployeeName(name);
+	public List<Employee> searchWithEmployeeName(String name,Integer managerId) {
+		return employeeRepository.findByEmployeeName(name,managerId);
+	}
+
+	@Override
+	public List<Employee> getAllEmployeesBasedOnManagerId(Integer managerId) {
+		return employeeRepository.findAllEmployeesByManagerId(managerId);
 	}
 
 	

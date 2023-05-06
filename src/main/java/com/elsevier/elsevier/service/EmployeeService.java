@@ -22,6 +22,8 @@ public interface EmployeeService {
 	
 	Employee validateUser(Employee employee);
 	
-	public List<Employee> searchWithEmployeeName(String name);
+	public List<Employee> searchWithEmployeeName(String name, Integer managerId);
+	
+	List<Employee> getAllEmployeesBasedOnManagerId(Integer managerId);
 
 }

@@ -32,10 +32,10 @@
 				<div class="col-md-10">
 					<div class="container">
 						<div class="row justify-content-center">
-							<h5>${message}</h5>
+							<h5><font color="red">${message}</font></h5>
 						</div>
 					</div>
-					<form:form action="/employee-management/save-task" method="post"
+					<form:form action="/employee-management/save-task/${managerId}" method="post"
 						modelAttribute="task">
 						<form:hidden path="taskId" />
 						<div class="row">
@@ -95,7 +95,7 @@
 							</div>
 
 							<div class="col-md-6">
-								<a href="/employee-management/manager-operations"
+								<a href="/employee-management/manager-operations/${managerId}"
 									class="btn btn-primary"> Manager Home </a>
 							</div>
 

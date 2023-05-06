@@ -21,32 +21,35 @@
 					<div class="row justify-content-center">
 						<h1>Employee Management</h1>
 					</div>
+					<div >
+						<h2>Employee Operations</h2>
+					</div>
 				</div>
 				<div class="container my-5">
 					<div>
 						<p class="my-5">
-							<a href="/employee-management/add-employee"
+							<a href="/employee-management/add-employee/${managerId}"
 								class="btn btn-primary"> <i class="fas fa-user-plus ml-2">  Add Employee</i>
 							</a>
 						</p>
 					</div>
 					<div>
 						<p class="my-5">
-							<a href="/employee-management/add-task"
+							<a href="/employee-management/add-task/${managerId}"
 								class="btn btn-primary"><b> Create Task</b>
 							</a>
 						</p>
 					</div>
 					<div>
 						<p class="my-5">
-							<a href="/employee-management/view-all-tasks"
+							<a href="/employee-management/view-all-tasks/${managerId}"
 								class="btn btn-primary"><b>  View All Tasks</b>
 							</a>
 						</p>
 					</div>
 					<div>
 						<p class="my-5">
-							<a href="/employee-management/view-all-employees"
+							<a href="/employee-management/view-all-employees/${managerId}"
 								class="btn btn-primary"> <b>  View All Employees</b>
 							</a>
 						</p>

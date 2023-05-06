@@ -21,10 +21,13 @@
 					<div class="row justify-content-center">
 						<h1>Employee Management</h1>
 					</div>
+					<div>
+						<h2 class="form-heading">Employee Details</h2>
+					</div>
 				</div>
 				<div class="container my-5">
 					<p class="my-5">
-						<a href="/employee-management/add-employee"
+						<a href="/employee-management/add-employee/${managerId}"
 							class="btn btn-primary"> <i class="fas fa-user-plus ml-2">Add
 								Employee </i>
 						</a>
@@ -34,11 +37,12 @@
 							<h2>No record found !!</h2>
 						</c:if>
 						<c:if test="${employees.size() gt 0 }">
-							<form action="/employee-management/employee-search/">
+							<form action="/employee-management/employee-search/${managerId}">
 								<label for="employeeName" class="col-form-label"><b>
 										Search Task : </b></label> &nbsp; <input type="text" name="employeeName"
-									size="50" id="employeeName" placeholder="search with employee name" />&nbsp;
-								<input type="submit" value="Search" />&nbsp;
+									size="50" id="employeeName"
+									placeholder="search with employee name" />&nbsp; <input
+									type="submit" value="Search" />&nbsp;
 							</form>
 							<div>
 								<table class="table table-striped table-responsive-md">
@@ -62,11 +66,11 @@
 												<td>${employee.designation}</td>
 												<td>${employee.location}</td>
 												<td><a
-													href="/employee-management/employee-update/${employee.id}"
+													href="/employee-management/employee-update/${managerId}/${employee.id}"
 													class="btn btn-primary"> <i
 														class="fas fa-user-edit ml-2"></i></a></td>
 												<td><a
-													href="/employee-management/employee-delete/${employee.id}"
+													href="/employee-management/employee-delete/${managerId}/${employee.id}"
 													class="btn btn-primary"> <i
 														class="fas fa-user-times ml-2"></i>
 												</a></td>
@@ -78,7 +82,7 @@
 						</c:if>
 					</div>
 					<div class="col-md-6">
-						<a href="/employee-management/manager-operations"
+						<a href="/employee-management/manager-operations/${managerId}"
 							class="btn btn-primary"> Manager Home </a>
 					</div>
 				</div>

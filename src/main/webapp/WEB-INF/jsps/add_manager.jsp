@@ -28,7 +28,7 @@
 				<div class="col-md-10">
 					<div class="container">
 						<div class="row justify-content-center">
-							<h5>${message}</h5>
+							<h5><font color="red">${message}</font></h5>
 						</div>
 					</div>
 					<form:form action="/employee-management/save-manager" method="post"
@@ -60,8 +60,8 @@
 							</div>
 
 							<div class="col-md-6">
-								<a href="/employee-management/manager-login"
-									class="btn btn-primary"> Login </a>
+								<a href="/employee-management/manager-mainpage"
+									class="btn btn-primary"> Main Page </a>
 							</div>
 
 						</div>

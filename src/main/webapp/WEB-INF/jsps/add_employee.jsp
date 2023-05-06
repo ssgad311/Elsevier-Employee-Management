@@ -26,10 +26,10 @@
 				<div class="col-md-10">
 					<div class="container">
 						<div class="row justify-content-center">
-							<h5>${message}</h5>
+							<h5><font color="red">${message}</font></h5>
 						</div>
 					</div>
-					<form:form action="/employee-management/save-employee"
+					<form:form action="/employee-management/save-employee/${managerId}"
 						method="post" modelAttribute="employee" enctype="multipart/form-data">
 						<form:hidden path="id" />
 						<div class="row">
@@ -100,15 +100,25 @@
 							
 							<div class="form-group col-md-8">
 								<label for=photos class="col-form-label">Upload Photo</label>
-								<input type="file" name="image" accept="image/png, image/jpeg" class="form-control"  path="photos" id="photos"/>
+								<input type="file" name="image" accept="image/png, image/jpeg" class="form-control"  path="photos" id="photos" />
 							</div>
 							
+							<%-- <div class="form-group col-md-8">
+								<label for="manager" class="col-form-label">Select
+									Manager</label> <select name="manager">
+									<option value="">--select manager--</option>
+									<c:forEach items="${managers}" var="manager">
+										<option value="${manager.id}">${manager.name}</option>
+									</c:forEach>
+								</select>
+							</div>
+							 --%>
 							<div class="col-md-6">
 								<input type="submit" class="btn btn-primary" value=" Submit ">
 							</div>
 
 							<div class="col-md-6">
-								<a href="/employee-management/manager-operations" class="btn btn-primary">Manager Home
+								<a href="/employee-management/manager-operations/${managerId}" class="btn btn-primary">Manager Home
 								</a>
 							</div>
 
