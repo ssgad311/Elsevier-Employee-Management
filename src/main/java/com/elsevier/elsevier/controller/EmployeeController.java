@@ -39,12 +39,12 @@ public class EmployeeController {
 	private TaskService taskService;
 
 	// Manager Operations
-	@GetMapping("/")
+	@GetMapping("/mainpage")
 	public String welcomPage() {
 		return "manager-main-page";
 	}
 	
-	@GetMapping("/11")
+	@GetMapping("/")
 	public String viewManagerRegistrationPageHomePageForRahul(Model model) {
 		model.addAttribute("manager", new Manager());
 		return "add_manager";
