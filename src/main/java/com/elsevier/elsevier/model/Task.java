@@ -33,7 +33,7 @@ public class Task {
 	private String taskStatus;
 	
 	@Column(name="task_created_date")
-	private Timestamp taskCreatedDate;
+	private String taskCreatedDate;
 	
 	@Column(name="task_completion_date")
 	private String taskCompletionDate;
@@ -93,12 +93,12 @@ public class Task {
 		this.taskStatus = taskStatus;
 	}
 
-	public Timestamp getTaskCreatedDate() {
+	public String getTaskCreatedDate() {
 		return taskCreatedDate;
 	}
 
-	public void setTaskCreatedDate(Timestamp timestamp) {
-		this.taskCreatedDate = timestamp;
+	public void setTaskCreatedDate(String string) {
+		this.taskCreatedDate = string;
 	}
 
 	public String getTaskCompletionDate() {
@@ -109,7 +109,7 @@ public class Task {
 		this.taskCompletionDate = taskCompletionDate;
 	}
 
-	public Task(Integer taskId, String taskName, String taskDetails, String taskStatus, Timestamp taskCreatedDate,
+	public Task(Integer taskId, String taskName, String taskDetails, String taskStatus, String taskCreatedDate,
 			String taskCompletionDate, Employee employee) {
 		super();
 		this.taskId = taskId;

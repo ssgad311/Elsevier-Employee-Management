@@ -1,12 +1,13 @@
 package com.elsevier.elsevier.service;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.elsevier.elsevier.model.Employee;
@@ -24,14 +25,18 @@ public class TaskServiceImpl implements TaskService {
 	private EmployeeRepository employeeRepository;
 
 	public List<Task> listAllTasks() {
-		return taskRepository.findAll();
+		return taskRepository.findAll(Sort.by(Sort.Direction.DESC, "taskId"));
 	}
 
 	@Override
 	public Task saveTask(Task task) {
 		Employee employee = employeeRepository.findById(task.getEmployee().getId()).get();
 		if (task.getTaskId() == null) {
-			task.setTaskCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.SS");  
+			LocalDateTime now = LocalDateTime.now();
+			task.setTaskCreatedDate(dtf.format(now));
+			SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
+			task.setTaskCompletionDate(s.format(new Date().parse(task.getTaskCompletionDate())));
 			Task taskDetails = taskRepository.save(task);
 			return taskDetails;
 		} else {

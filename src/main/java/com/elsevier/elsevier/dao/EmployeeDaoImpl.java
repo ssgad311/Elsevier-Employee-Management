@@ -19,7 +19,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 	private EmployeeRepository employeeRepository;
 	
 	public List<Employee> getAllEmployees() {
-		return employeeRepository.findAll(); 	
+		return employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id")); 	
 	}
 
 	public void saveEmployee(Employee employee) {
