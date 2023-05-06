@@ -22,10 +22,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
 		return employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id")); 	
 	}
 
-	public void saveEmployee(Employee employee) {
+	public Employee saveEmployee(Employee employee) {
 		System.out.println("Employee Id : "+employee.getId());
 		if(employee.getId()==null) {
-			employeeRepository.save(employee);
+			return employeeRepository.save(employee);
 		}else {
 			Employee employeeObject = employeeRepository.findById(employee.getId()).get();
 			employeeObject.setName(employee.getName());
@@ -36,7 +36,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			employeeObject.setEmailId(employee.getEmailId());
 			employeeObject.setGender(employee.getGender());
 			employeeObject.setSalary(employee.getSalary());
-			employeeRepository.save(employee);
+			return employeeRepository.save(employee);
 		}
 	}
 

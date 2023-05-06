@@ -47,6 +47,9 @@ public class Employee {
 	@Column(name = "employee_salary")
 	private Double salary;
 	
+	@Column(name = "employee_photo", nullable = true, length = 64)
+    private String photos;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -134,6 +137,14 @@ public class Employee {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
 	}
 	
 	

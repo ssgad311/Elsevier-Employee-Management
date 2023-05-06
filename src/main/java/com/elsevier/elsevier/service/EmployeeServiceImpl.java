@@ -25,8 +25,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.getAllEmployees();
 	}
 
-	public void saveEmployee(Employee employee) {
-		employeeDao.saveEmployee(employee);	
+	public Employee saveEmployee(Employee employee) {
+		return employeeDao.saveEmployee(employee);	
 	}
 
 	public Employee getById(Integer id) {

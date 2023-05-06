@@ -30,7 +30,7 @@
 						</div>
 					</div>
 					<form:form action="/employee-management/save-employee"
-						method="post" modelAttribute="employee">
+						method="post" modelAttribute="employee" enctype="multipart/form-data">
 						<form:hidden path="id" />
 						<div class="row">
 							<div class="form-group col-md-8">
@@ -97,6 +97,12 @@
 								<form:input type="text" class="form-control" id="salary"
 									path="salary" placeholder="Salary" />
 							</div>
+							
+							<div class="form-group col-md-8">
+								<label for=photos class="col-form-label">Upload Photo</label>
+								<input type="file" name="image" accept="image/png, image/jpeg" class="form-control"  path="photos" id="photos"/>
+							</div>
+							
 							<div class="col-md-6">
 								<input type="submit" class="btn btn-primary" value=" Submit ">
 							</div>
