@@ -253,10 +253,19 @@ public class EmployeeController {
 	}	
 
 	@GetMapping("/task-delete/{id}")
-	public String deleteT(@PathVariable("id") Integer id) {
+	public String deleteTask(@PathVariable("id") Integer id) {
 		Task task = taskService.getById(id);
 		taskService.delete(task);
 		return "redirect:/employee-management/view-all-tasks";
+	}
+	
+	@GetMapping("/task-search")
+	public String taskSearch(@RequestParam("taskName") String name, Model model) {
+		System.out.println("Name : "+name);
+		List<Task> taskList = taskService.searchWithTaskName(name);
+		System.out.println("List fo task : "+taskList.size());
+		model.addAttribute("tasks", taskList);
+		return "task_details";
 	}
 
 	@GetMapping("/page/{pageNum}")

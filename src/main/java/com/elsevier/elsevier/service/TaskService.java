@@ -16,4 +16,6 @@ public interface TaskService {
 	public void delete(Task task);
 
 	public List<Task> getTaskDetailsByEmployeeId(Integer employeeId);
+	
+	public List<Task> searchWithTaskName(String name);
 }

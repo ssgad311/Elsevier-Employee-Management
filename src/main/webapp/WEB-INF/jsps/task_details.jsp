@@ -49,6 +49,12 @@
 							<h2>No record found !!</h2>
 						</c:if>
 						<c:if test="${tasks.size() gt 0 }">
+							<form action="/employee-management/task-search/">
+								<label for="taskName" class="col-form-label"><b>  Search
+										Task : </b></label> &nbsp; <input type="text" name="taskName" size="50"
+									id="taskName" placeholder="search with task name"  />&nbsp;
+								<input type="submit" value="Search" />&nbsp;
+							</form>
 							<div>
 								<table class="table table-striped table-responsive-md">
 									<thead>

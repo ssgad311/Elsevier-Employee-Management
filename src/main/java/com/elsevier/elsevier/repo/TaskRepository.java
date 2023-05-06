@@ -12,4 +12,13 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
 	@Query(
 			  value = "SELECT * FROM Task where employee_id = :employeeId order by task_id desc", nativeQuery = true)
 	List<Task> findByEmployeeId(Integer employeeId);
+	
+	@Query(value ="SELECT * FROM Task t WHERE " +
+            "t.task_name LIKE CONCAT('%',:name, '%')",nativeQuery = true)
+	List<Task> findByTaskName(String name);
+	
+	
+	
+	
+	
 }

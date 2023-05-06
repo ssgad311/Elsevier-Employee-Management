@@ -66,4 +66,9 @@ public class TaskServiceImpl implements TaskService {
 		System.out.println("taskDetailsOfEmployee : " + taskDetailsOfEmployee);
 		return taskDetailsOfEmployee;
 	}
+	
+	public List<Task> searchWithTaskName(String name) {
+		System.out.println("service name : "+name);
+		return taskRepository.findByTaskName(name);
+	}
 }
