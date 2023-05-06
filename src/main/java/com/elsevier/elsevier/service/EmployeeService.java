@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.elsevier.elsevier.model.Employee;
 import com.elsevier.elsevier.model.Manager;
+import com.elsevier.elsevier.model.Task;
 
 public interface EmployeeService {
 
@@ -20,5 +21,7 @@ public interface EmployeeService {
 	Page<Employee> listAll(int pageNum, String sortField, String sortDir);
 	
 	Employee validateUser(Employee employee);
+	
+	public List<Employee> searchWithEmployeeName(String name);
 
 }

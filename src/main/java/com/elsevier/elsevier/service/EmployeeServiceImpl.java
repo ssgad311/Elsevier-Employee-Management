@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.elsevier.elsevier.dao.EmployeeDao;
 import com.elsevier.elsevier.model.Employee;
 import com.elsevier.elsevier.model.Manager;
+import com.elsevier.elsevier.model.Task;
 import com.elsevier.elsevier.repo.EmployeeRepository;
 
 @Service
@@ -51,6 +52,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employeeList.add(employeeDetails);
 		return employeeList.size() > 0 ? employeeList.get(0) : null;
 	}	
+	
+	public List<Employee> searchWithEmployeeName(String name) {
+		return employeeRepository.findByEmployeeName(name);
+	}
 
 	
 }

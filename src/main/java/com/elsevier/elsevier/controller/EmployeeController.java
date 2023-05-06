@@ -185,6 +185,15 @@ public class EmployeeController {
 		employeeService.delete(employee);
 		return "redirect:/employee-management/view-all-employees";
 	}
+	
+	@GetMapping("/employee-search")
+	public String employeeSearch(@RequestParam("employeeName") String name, Model model) {
+		System.out.println("Name : "+name);
+		List<Employee> employeeList = employeeService.searchWithEmployeeName(name);
+		model.addAttribute("employees", employeeList);
+		return "employee-details";
+	}
+
 
 	
 
