@@ -27,6 +27,7 @@ public class ManagerServiceImpl implements ManagerService {
 
 	@Override
 	public Manager validateUser(Manager manager) {
+		System.out.println("username : "+manager.getUsername() +" &&& Password "+manager.getPassword());
 		Manager managerDetails = managerRepository.findByUsernameAndPassword(manager.getUsername(),manager.getPassword());
 		List<Manager> managerList = new ArrayList<>();
 		managerList.add(managerDetails);
