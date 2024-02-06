@@ -53,6 +53,10 @@ public class EmployeeController {
 		return "add_manager";
 	}
 
+	public String temp(){
+		return "";
+	}
+
 	@GetMapping(URLConstants.MANAGER_HOME_PAGE_TEMP)
 	public String managerMainPage() {
 		return "manager-main-page2-for-rahul";
